@@ -30,7 +30,6 @@ namespace CrbAuth.Data
 
             get
             {
-
                 ThrowIfDisposed();
 
                 IQueryable<Role> query = _dbcontext.Set<Role>();
