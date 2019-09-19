@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrbAuth.Entities", "CrbAuth.Entities\CrbAuth.Entities.csproj", "{AB1E4838-6579-43AD-A053-2C4F8EDC845C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrbAuth.Data", "CrbAuth.Data\CrbAuth.Data.csproj", "{964C1E7F-8B22-46A7-BEBA-5B9B5C3FF466}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB1E4838-6579-43AD-A053-2C4F8EDC845C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1E4838-6579-43AD-A053-2C4F8EDC845C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1E4838-6579-43AD-A053-2C4F8EDC845C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1E4838-6579-43AD-A053-2C4F8EDC845C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964C1E7F-8B22-46A7-BEBA-5B9B5C3FF466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964C1E7F-8B22-46A7-BEBA-5B9B5C3FF466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964C1E7F-8B22-46A7-BEBA-5B9B5C3FF466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964C1E7F-8B22-46A7-BEBA-5B9B5C3FF466}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AFE663A-E740-4E36-976D-95D5CFBEAFD7}
+	EndGlobalSection
+EndGlobal
