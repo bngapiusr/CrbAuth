@@ -20,6 +20,14 @@ namespace CrbAuth.Web.Controllers
             _roleManager = roleManager;
         }
 
+        public IActionResult Login(string returnUrl)
+        {
+            //why return url
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            });
+        }
 
     }
 }
