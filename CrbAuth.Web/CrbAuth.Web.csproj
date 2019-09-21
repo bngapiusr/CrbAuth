@@ -15,4 +15,8 @@
     <ProjectReference Include="..\CrbAuth.Entities\CrbAuth.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
