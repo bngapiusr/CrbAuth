@@ -12,14 +12,14 @@ namespace CrbAuth.Web.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<User> userManager, RoleManager<Role> roleManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            _signInManager = signInManager;
         }
-
+        [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             //why return url
@@ -29,5 +29,30 @@ namespace CrbAuth.Web.Controllers
             });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            var user = await _userManager.FindByNameAsync(vm.UserName);
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user, vm.Password, false, false);
+                if (result.Succeeded)
+                {
+                    if (string.IsNullOrEmpty(vm.ReturnUrl))
+                    {
+                        return RedirectToAction("Index","Home");
+                    }
+
+                    return Redirect(vm.ReturnUrl);
+                }
+            }
+            ModelState.AddModelError("", "UserName/Password not found");
+            return View(vm);
+        }
     }
 }
