@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrbAuth.Entities;
 using Microsoft.AspNetCore.Identity;
+using CrbAuth.Web.ViewModels;
 
 namespace CrbAuth.Web.Controllers
 {
@@ -62,11 +63,17 @@ namespace CrbAuth.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(LoginViewModel vm)
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = vm.UserName };
+                var user = new User()
+                {
+                    UserName = vm.UserName,
+                    Email =vm.Email,
+                    EmailConfirmed =vm.ConfirmedEmail,
+                    PasswordHash = vm.Password
+                 };
                 var result = await _userManager.CreateAsync(user, vm.Password);
                 if (result.Succeeded)
                 {

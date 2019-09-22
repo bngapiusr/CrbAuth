@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrbAuth.Web.Controllers
+namespace CrbAuth.Web.ViewModels
 {
     public class LoginViewModel
     {
