@@ -54,5 +54,28 @@ namespace CrbAuth.Web.Controllers
             ModelState.AddModelError("", "UserName/Password not found");
             return View(vm);
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(LoginViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User() { UserName = vm.UserName };
+                var result = await _userManager.CreateAsync(user, vm.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(vm);
+        }
+
+
     }
 }
