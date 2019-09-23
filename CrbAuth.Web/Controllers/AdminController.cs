@@ -29,5 +29,20 @@ namespace CrbAuth.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult DeleteUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult EditUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult AddUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
