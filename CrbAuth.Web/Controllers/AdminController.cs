@@ -67,9 +67,9 @@ namespace CrbAuth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditUser(string Id)
+        public async Task<IActionResult> EditUser(string userId)
         {
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user==null)
             {
                 return RedirectToAction("UserManagement", _userManager.Users);
@@ -91,7 +91,7 @@ namespace CrbAuth.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(vm.UserId.ToString());
 
-            if (user==null)
+            if (user !=null)
             {
                 user.UserId = vm.UserId;
                 user.UserName = vm.UserName;
@@ -113,11 +113,11 @@ namespace CrbAuth.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string Id)
+        public async Task<IActionResult> DeleteUser(string userId)
         {
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(userId);
 
-            if (user==null)
+            if (user!=null)
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
