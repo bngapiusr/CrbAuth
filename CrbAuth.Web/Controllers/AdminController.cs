@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrbAuth.Web.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CrbAuth.Web.Controllers
 {
@@ -65,18 +66,76 @@ namespace CrbAuth.Web.Controllers
             return View(addUserVm);
         }
 
-        public IActionResult EditUser()
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string Id)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user==null)
+            {
+                return RedirectToAction("UserManagement", _userManager.Users);
+            }
+            
+            var vm = new AddUserViewModel()
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                FirstName = user.Email,
+                MiddleInitial = user.MiddleInitial,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditUser(AddUserViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.UserId.ToString());
+
+            if (user==null)
+            {
+                user.UserId = vm.UserId;
+                user.UserName = vm.UserName;
+                user.Email = vm.Email;
+                user.MiddleInitial = vm.MiddleInitial;
+                user.LastName = vm.LastName;
+                user.Email = vm.Email;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("UserManagement", _userManager.Users);
+                }
+                ModelState.AddModelError("", "User not updated, something went wrong.");
+                return View(vm);
+            }
+
+            return RedirectToAction("UserManagement", _userManager.Users);
         }
 
-        public IActionResult DeleteUser()
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string Id)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if (user==null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("UserManagement");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong while deleting this user.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "This user can't be found.");
+            }
+
+            return View("UserManagement", _userManager.Users);
         }
-
-
-
 
     }
 }
