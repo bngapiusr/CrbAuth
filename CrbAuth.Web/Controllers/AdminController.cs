@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrbAuth.Web.ViewModels;
 
 namespace CrbAuth.Web.Controllers
 {
@@ -30,9 +31,38 @@ namespace CrbAuth.Web.Controllers
             return View();
         }
 
-        public IActionResult DeleteUser()
+        [HttpGet]
+        public IActionResult AddUser()
         {
-            throw new NotImplementedException();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser(AddUserViewModel addUserVm)
+        {
+            if (ModelState.IsValid) return View(addUserVm);
+            var user = new User()
+            {
+                UserName = addUserVm.UserName,
+                FirstName = addUserVm.FirstName,
+                MiddleInitial = addUserVm.MiddleInitial,
+                LastName = addUserVm.LastName,
+                Email = addUserVm.Email,
+                EmailConfirmed = addUserVm.ConfirmedEmail
+            };
+            IdentityResult result = await _userManager.CreateAsync(user, addUserVm.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("UserManagement", _userManager.Users);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("",error.Description);
+            }
+
+            return View(addUserVm);
         }
 
         public IActionResult EditUser()
@@ -40,9 +70,13 @@ namespace CrbAuth.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult AddUser()
+        public IActionResult DeleteUser()
         {
             throw new NotImplementedException();
         }
+
+
+
+
     }
 }
