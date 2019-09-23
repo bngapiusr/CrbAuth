@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Extensions.Internal;
 namespace CrbAuth.Data
 {
 
-    public class CustomUserStore : IUserEmailStore<User>, IUserRoleStore<User>, IUserPasswordStore<User>
+    public class CustomUserStore : IUserEmailStore<User>, IUserRoleStore<User>, IUserPasswordStore<User>, IQueryableUserStore<User>
     {
         private bool _disposed;
 
@@ -24,7 +24,45 @@ namespace CrbAuth.Data
             _dbcontext = dbcontext;
         }
 
+        #region SampleCodeForIQueryable
+
+              //public virtual IQueryable<T> GetAll()
+        //{
+
+        //    return _dbset.AsQueryable<T>();
+        //}
+
+        //public IQueryable<T> FindBy(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        //{
+
+        //    IQueryable<T> query = _dbset.Where(predicate).AsQueryable();
+        //    return query;
+        //}
+
+
+        #endregion
+  
+
+
         #region " User "
+
+        public virtual IQueryable<User> Users
+        {
+
+            get
+            {
+                ThrowIfDisposed();
+
+                IQueryable<User> query = _dbcontext.Set<User>();
+                if (query == null)
+                {
+                    throw new ArgumentNullException(nameof(query));
+                }
+                return query;
+            }
+        }
+
+
         public async Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
