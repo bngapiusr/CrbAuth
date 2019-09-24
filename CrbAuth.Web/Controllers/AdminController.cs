@@ -179,6 +179,13 @@ namespace CrbAuth.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> EditRole(string roleId)
         {
+            //check for null values - still working on this...
+            //could use partialview 
+            if (roleId == null)
+            {
+                ModelState.AddModelError("", "RoleId can not be null.");
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
             var role = await _roleManager.FindByIdAsync(roleId);
             if (role == null) return RedirectToAction("RoleManagement", _roleManager.Roles);
 
