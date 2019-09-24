@@ -20,8 +20,8 @@ else
                 <td>@role.RoleId</td>
                 <td>@role.Name</td>
                 <td>
-                    <form asp-action="DeleteRole" asp-route-id="@role.RoleId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.RoleId">Edit</a>
+                    <form asp-action="DeleteRole" asp-route-roleId="@role.RoleId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-roleId="@role.RoleId">Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this role?');">
                             Delete
                         </button>

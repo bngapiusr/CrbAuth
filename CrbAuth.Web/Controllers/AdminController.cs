@@ -271,7 +271,7 @@ namespace CrbAuth.Web.Controllers
             return View(AddUserTooRoleVm);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> AddUserToRole(UserRoleViewModel vm)
         {
             var user = await _userManager.FindByIdAsync(vm.UserId);
