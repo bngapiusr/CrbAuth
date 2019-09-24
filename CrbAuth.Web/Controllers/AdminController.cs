@@ -137,5 +137,25 @@ namespace CrbAuth.Web.Controllers
             return View("UserManagement", _userManager.Users);
         }
 
+        public IActionResult RoleManagement()
+        {
+            var roles = _roleManager.Roles;
+            return View(roles);
+        }
+
+        public IActionResult DeleteRole()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult EditRole()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult AddNewRole()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
