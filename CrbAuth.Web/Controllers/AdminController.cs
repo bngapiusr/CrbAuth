@@ -137,12 +137,39 @@ namespace CrbAuth.Web.Controllers
             return View("UserManagement", _userManager.Users);
         }
 
+        //Role Management
         public IActionResult RoleManagement()
         {
             var roles = _roleManager.Roles;
             return View(roles);
         }
 
+        [HttpGet]
+        public IActionResult AddNewRole() => View();
+        [HttpPost]
+        public async Task<IActionResult> AddNewRole(AddRoleViewModel vm)
+        {
+            if (!ModelState.IsValid) return View(vm);
+
+            var role = new Role(vm.Name)
+            {
+                Name = vm.Name
+            };
+
+            IdentityResult result = await _roleManager.CreateAsync(role);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(vm);
+        }
         public IActionResult DeleteRole()
         {
             throw new NotImplementedException();
@@ -153,9 +180,6 @@ namespace CrbAuth.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult AddNewRole()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
