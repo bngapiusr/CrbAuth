@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using CrbAuth.Web.ViewModels;
@@ -170,15 +171,69 @@ namespace CrbAuth.Web.Controllers
 
             return View(vm);
         }
-        public IActionResult DeleteRole()
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string roleId)
         {
-            throw new NotImplementedException();
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null) return RedirectToAction("RoleManagement", _roleManager.Roles);
+
+            var vm = new EditRoleViewModel
+            {
+                RoleId = role.RoleId.ToString(),
+                RoleName = role.Name,
+                Users = new List<string>()
+            };
+
+            foreach (var user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name)) ;
+                    vm.Users.Add(user.UserName);
+            }
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel vm)
+        {
+            var role = await _roleManager.FindByIdAsync(vm.RoleId);
+            if (role!=null)
+            {
+                role.Name = vm.RoleName;
+                var result = await _roleManager.UpdateAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
+                }
+                ModelState.AddModelError("", "Role not updated, something went wrong.");
+                return View(vm);
+            }
+
+            return View(vm);
         }
 
-        public IActionResult EditRole()
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string roleId)
         {
-            throw new NotImplementedException();
+            Role role = await _roleManager.FindByIdAsync(roleId);
+            if (role != null)
+            {
+                var result = await _roleManager.DeleteAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
+                }
+                ModelState.AddModelError("","Something went wrong while deleting this role.");
+            }
+            else
+            {
+                ModelState.AddModelError("","This role can't be found.");
+            }
+
+            return View("RoleManagement", _roleManager.Roles);
         }
+
+   //User in roles
 
 
     }
