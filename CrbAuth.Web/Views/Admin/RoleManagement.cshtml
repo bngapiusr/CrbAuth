@@ -2,7 +2,7 @@
 
 <h2>Role Management</h2>
 
-@if (Model.Any())
+@if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No roles defined yet. Please create the first role.</td></tr>
 }
