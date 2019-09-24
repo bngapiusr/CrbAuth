@@ -28,6 +28,7 @@ namespace CrbAuth.Web.Controllers
             var users = _userManager.Users;
             return View(users);
         }
+
         public IActionResult Index()
         {
             return View();
@@ -61,7 +62,7 @@ namespace CrbAuth.Web.Controllers
 
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("",error.Description);
+                ModelState.AddModelError("", error.Description);
             }
 
             return View(addUserVm);
@@ -71,11 +72,11 @@ namespace CrbAuth.Web.Controllers
         public async Task<IActionResult> EditUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user==null)
+            if (user == null)
             {
                 return RedirectToAction("UserManagement", _userManager.Users);
             }
-            
+
             var vm = new AddUserViewModel()
             {
                 UserId = user.UserId,
@@ -87,12 +88,13 @@ namespace CrbAuth.Web.Controllers
             };
             return View(vm);
         }
+
         [HttpPost]
         public async Task<IActionResult> EditUser(AddUserViewModel vm)
         {
             var user = await _userManager.FindByIdAsync(vm.UserId.ToString());
 
-            if (user !=null)
+            if (user != null)
             {
                 user.UserId = vm.UserId;
                 user.UserName = vm.UserName;
@@ -106,6 +108,7 @@ namespace CrbAuth.Web.Controllers
                 {
                     return RedirectToAction("UserManagement", _userManager.Users);
                 }
+
                 ModelState.AddModelError("", "User not updated, something went wrong.");
                 return View(vm);
             }
@@ -118,7 +121,7 @@ namespace CrbAuth.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user!=null)
+            if (user != null)
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
@@ -147,6 +150,7 @@ namespace CrbAuth.Web.Controllers
 
         [HttpGet]
         public IActionResult AddNewRole() => View();
+
         [HttpPost]
         public async Task<IActionResult> AddNewRole(AddRoleViewModel vm)
         {
@@ -171,6 +175,7 @@ namespace CrbAuth.Web.Controllers
 
             return View(vm);
         }
+
         [HttpGet]
         public async Task<IActionResult> EditRole(string roleId)
         {
@@ -187,16 +192,17 @@ namespace CrbAuth.Web.Controllers
             foreach (var user in _userManager.Users)
             {
                 if (await _userManager.IsInRoleAsync(user, role.Name)) ;
-                    vm.Users.Add(user.UserName);
+                vm.Users.Add(user.UserName);
             }
 
             return View(vm);
         }
+
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel vm)
         {
             var role = await _roleManager.FindByIdAsync(vm.RoleId);
-            if (role!=null)
+            if (role != null)
             {
                 role.Name = vm.RoleName;
                 var result = await _roleManager.UpdateAsync(role);
@@ -204,6 +210,7 @@ namespace CrbAuth.Web.Controllers
                 {
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
                 }
+
                 ModelState.AddModelError("", "Role not updated, something went wrong.");
                 return View(vm);
             }
@@ -223,17 +230,104 @@ namespace CrbAuth.Web.Controllers
                 {
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
                 }
-                ModelState.AddModelError("","Something went wrong while deleting this role.");
+
+                ModelState.AddModelError("", "Something went wrong while deleting this role.");
             }
             else
             {
-                ModelState.AddModelError("","This role can't be found.");
+                ModelState.AddModelError("", "This role can't be found.");
             }
 
             return View("RoleManagement", _roleManager.Roles);
         }
 
-   //User in roles
+        //User in roles
+
+        [HttpGet]
+        public async Task<IActionResult> AddUserToRole(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            var AddUserTooRoleVm = new UserRoleViewModel() {RoleId = role.RoleId.ToString()};
+            foreach (var user in _userManager.Users)
+            {
+                if (!await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    AddUserTooRoleVm.Users.Add(user);
+                }
+            }
+
+            return View(AddUserTooRoleVm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddUserToRole(UserRoleViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.UserId);
+            var role = await _roleManager.FindByIdAsync(vm.RoleId);
+            var result = await _userManager.AddToRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+
+            }
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUserFromRole(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            var addUserToRoleVm = new UserRoleViewModel {RoleId = role.RoleId.ToString()};
+
+            foreach (var user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    addUserToRoleVm.Users.Add(user);
+                }
+            }
+
+            return View(addUserToRoleVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.UserId);
+            var role = await _roleManager.FindByIdAsync(vm.RoleId);
+
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(vm);
+
+        }
 
 
     }
