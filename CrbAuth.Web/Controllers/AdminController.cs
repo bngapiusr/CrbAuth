@@ -23,6 +23,8 @@ namespace CrbAuth.Web.Controllers
             _roleManager = roleManager;
         }
 
+        #region User Management
+
         public IActionResult UserManagement()
         {
             var users = _userManager.Users;
@@ -141,7 +143,10 @@ namespace CrbAuth.Web.Controllers
             return View("UserManagement", _userManager.Users);
         }
 
-        
+        #endregion
+
+        #region Role Management
+
         //Role Management
         public IActionResult RoleManagement()
         {
@@ -248,6 +253,10 @@ namespace CrbAuth.Web.Controllers
 
             return View("RoleManagement", _roleManager.Roles);
         }
+        #endregion
+
+        #region User In Role
+
 
         //User in roles
 
@@ -336,6 +345,7 @@ namespace CrbAuth.Web.Controllers
             return View(vm);
 
         }
+        #endregion
 
 
     }
