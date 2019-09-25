@@ -43,7 +43,7 @@ namespace CrbAuth.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel addUserVm)
         {
-            if (ModelState.IsValid) return View(addUserVm);
+            if (!ModelState.IsValid) return View(addUserVm);
             var user = new User()
             {
                 UserName = addUserVm.UserName,
@@ -60,7 +60,7 @@ namespace CrbAuth.Web.Controllers
                 return RedirectToAction("UserManagement", _userManager.Users);
             }
 
-            foreach (var error in result.Errors)
+            foreach (IdentityError error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
@@ -141,6 +141,7 @@ namespace CrbAuth.Web.Controllers
             return View("UserManagement", _userManager.Users);
         }
 
+        
         //Role Management
         public IActionResult RoleManagement()
         {
@@ -222,7 +223,7 @@ namespace CrbAuth.Web.Controllers
                 return View(vm);
             }
 
-            return View(vm);
+            return RedirectToAction("RoleManagement", _roleManager.Roles);
         }
 
 
@@ -259,16 +260,16 @@ namespace CrbAuth.Web.Controllers
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
             }
 
-            var AddUserTooRoleVm = new UserRoleViewModel() {RoleId = role.RoleId.ToString()};
+            var addUserTooRoleVm = new UserRoleViewModel() {RoleId = role.RoleId.ToString()};
             foreach (var user in _userManager.Users)
             {
                 if (!await _userManager.IsInRoleAsync(user, role.Name))
                 {
-                    AddUserTooRoleVm.Users.Add(user);
+                    addUserTooRoleVm.Users.Add(user);
                 }
             }
 
-            return View(AddUserTooRoleVm);
+            return View(addUserTooRoleVm);
         }
 
         [HttpPost]
