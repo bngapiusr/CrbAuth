@@ -198,8 +198,8 @@ namespace CrbAuth.Web.Controllers
 
             foreach (var user in _userManager.Users)
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name)) ;
-                vm.Users.Add(user.UserName);
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                    vm.Users.Add(user.UserName);
             }
 
             return View(vm);
