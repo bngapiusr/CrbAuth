@@ -81,7 +81,7 @@ namespace CrbAuth.Web.Controllers
             {
                 UserId = user.UserId,
                 UserName = user.UserName,
-                FirstName = user.Email,
+                FirstName = user.FirstName,
                 MiddleInitial = user.MiddleInitial,
                 LastName = user.LastName,
                 Email = user.Email
