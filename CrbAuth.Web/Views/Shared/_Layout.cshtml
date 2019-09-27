@@ -6,8 +6,13 @@
     <title>@ViewData["Title"] - CrbAuth.Web</title>
 
     <environment include="Development">
+        <link href="~/node_modules/bootswatch/dist/yeti/bootstrap.min.css" rel="stylesheet" />
+
+        @*    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
         <link href="~/lib/bootstrap/dist/css/bootstrap-solar.min.css" rel="stylesheet" />
-        @*  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -68,10 +73,11 @@
         </div>
     </footer>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
+<environment include="Development">
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>*@
+</environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
