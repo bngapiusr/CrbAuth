@@ -10,6 +10,6 @@
     "jquery": "^3.4.1",
     "jquery-validation": "^1.19.1",
     "jquery-validation-unobtrusive": "^3.2.11",
-    "toaster-js": "^2.2.0"
+    "toastr": "^2.1.4"
   }
 }
