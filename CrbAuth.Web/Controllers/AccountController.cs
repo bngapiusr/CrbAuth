@@ -70,8 +70,8 @@ namespace CrbAuth.Web.Controllers
                 var user = new User()
                 {
                     UserName = vm.UserName,
-                    Email =vm.Email,
-                    EmailConfirmed =vm.ConfirmedEmail,
+                    Email = vm.Email,
+                    EmailConfirmed = vm.ConfirmedEmail,
                     PasswordHash = vm.Password
                  };
                 var result = await _userManager.CreateAsync(user, vm.Password);

@@ -33,9 +33,9 @@ namespace CrbAuth.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(
+);
         }
-
         [HttpGet]
         public IActionResult AddUser()
         {
@@ -101,6 +101,7 @@ namespace CrbAuth.Web.Controllers
                 user.UserId = vm.UserId;
                 user.UserName = vm.UserName;
                 user.Email = vm.Email;
+                user.FirstName = vm.FirstName;
                 user.MiddleInitial = vm.MiddleInitial;
                 user.LastName = vm.LastName;
                 user.Email = vm.Email;
