@@ -44,6 +44,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-size: 1rem;
 }
 .footer {
   position: absolute;
@@ -53,4 +54,23 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
+}
+
+/*Navigation */
+.navbar{
+    font-size: 0.9rem;
+}
+
+
+/*table */
+
+.table{
+    font-size: 14px;
+}
+
+/* Form Controls */
+label, .control-label, .help-block, .checkbox, .radio, .form-control-feedback{
+
+    font-size:0.9rem;
+
 }
