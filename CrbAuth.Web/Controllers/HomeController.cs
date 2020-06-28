@@ -24,6 +24,22 @@ namespace CrbAuth.Web.Controllers
             /*
              * https://www.codeproject.com/Articles/1139528/Toastr-Net-Yet-Another-Notification-Plugin-Extende
              * 
+            http://mahedee.net/simple-notifications-with-toastr
+            https://www.youtube.com/watch?v=Z8RstrIaeFA
+            https://www.youtube.com/watch?v=_qIYBgWTlTo
+            https://www.youtube.com/watch?v=w-OHoD47VOA
+            https://www.youtube.com/watch?v=8cUlo1sfBZ4
+            http://www.dotnetawesome.com/2016/12/crud-operation-using-datatables-aspnet-mvc.html
+            https://www.youtube.com/watch?v=3pEax-5wXG8
+
+            check this first
+            https://www.aspforums.net/Threads/859788/Calling-JavaScript-Function-from-Controller-in-ASPNet-MVC/
+
+            https://www.aspsnippets.com/Articles/Call-JavaScript-Function-from-Controller-in-ASPNet-MVC.aspx
+            https://www.c-sharpcorner.com/forums/how-to-call-the-javascript-function-in-mvc-action-result
+            https://forums.asp.net/t/1735868.aspx?Call+Javascript+Function+in+MVC+Controller+
+
+            --------------------------------------
 
         //https://johnpapa.net/toastr100beta/
         //https://www.aspforums.net/Threads/136481/Display-jQuery-Toaster-Notifications-from-Server-Side-in-ASPNet/
