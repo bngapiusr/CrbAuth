@@ -1,8 +1,57 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal
+@{
     ViewData["Title"] = "Home Page";
 }
+<style type="text/css">
+    .btn-primary {
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+    <button id="btntostsuccess" class="btn btn-primary"> Toastr Success</button>
+    <button id="btntostInfo" class="btn btn-info"> Toastr Info</button>
+    <button id="btntostdanger" class="btn btn-danger"> Toastr Danger</button>
+    <button id="btntostwarning" class="btn btn-warning"> Toastr Warning</button>
 </div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#btntostsuccess").click(function () {
+                toastr.success("Success Toastr !!!", "Toastr");
+            });
+
+
+
+            $("#btntostInfo").click(function () {
+                toastr.info("Info Toastr !!!", "Toastr");
+
+
+            });
+
+
+            $("#btntostdanger").click(function () {
+                toastr.error("Danger Toastr !!!", "Toastr");
+
+            });
+
+
+            $("#btntostwarning").click(function () {
+                toastr.warning("Warning Toastr !!!", "Toastr");
+
+            });
+
+        });
+    </script>
+
+
+}

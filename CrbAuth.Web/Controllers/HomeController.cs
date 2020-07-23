@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CrbAuth.Toastr.OptionEnums;
 using Microsoft.AspNetCore.Mvc;
 using CrbAuth.Web.Models;
 using CrbAuth.Web.ViewModels;
+using Microsoft.CodeAnalysis.CodeStyle;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Newtonsoft.Json;
 
@@ -15,7 +17,25 @@ namespace CrbAuth.Web.Controllers
     {
         public IActionResult Index()
         {
+            var val = 5;
+            if (val == 5)
+            {
+                 ViewBag.JavaScriptFunction = string.Format("ShowSuccessMsg();");
+
+                //ToastType toast = new ToastType();
+                return View(ToastType.Success);
+
+
+            }
+            else
+            {
+                var msg = "You just enter the privacy action method!";
+                ViewBag.JavaScriptFunction = string.Format("ShowFailure('{0}');", msg);
+
+            }
             return View();
+
+
         }
 
         [HttpPost]
@@ -52,6 +72,8 @@ namespace CrbAuth.Web.Controllers
 
         public IActionResult Privacy()
         {
+            var msg = "You just enter the privacy action method!";
+            ViewBag.JavaScriptFunction = string.Format("ShowFailure('{0}');", msg);
             return View();
         }
 

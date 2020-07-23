@@ -5,6 +5,8 @@ using CrbAuth.Toastr.OptionEnums;
 
 namespace CrbAuth.Toastr
 {
+    //https://github.com/fatihBulbul/toastr.Net/blob/master/toastr.Net.Core/Notification.cs
+    //https://github.com/fatihBulbul/toastr.Net
     public static class Notification
     {
         #region HELPERS

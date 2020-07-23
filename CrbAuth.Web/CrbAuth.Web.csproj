@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CrbAuth.Data\CrbAuth.Data.csproj" />
     <ProjectReference Include="..\CrbAuth.Entities\CrbAuth.Entities.csproj" />
+    <ProjectReference Include="..\CrbAuth.Toastr\CrbAuth.Toastr.csproj" />
   </ItemGroup>
 
 </Project>
